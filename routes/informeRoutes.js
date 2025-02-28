@@ -12,31 +12,25 @@ router.post("/generar-informe", async (req, res) => {
     try {
         console.log("📥 Recibida solicitud para generar informe.");
 
-        const { paciente } = req.body;
-
+        const paciente = req.body.paciente;
         if (!paciente) {
-            return res.status(400).json({ error: "No se proporcionaron datos del paciente." });
+            return res.status(400).json({ error: "Datos de paciente no proporcionados." });
         }
 
-        // 1️⃣ Generar el informe con los datos actualizados
+        // 📌 Generar el informe y obtener el Buffer
         const buffer = generarInforme(paciente);
 
-        // 2️⃣ Enviar el archivo Word como respuesta
-        res.set({
-            "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "Content-Disposition": `attachment; filename="${paciente.nombre}.docx"`,
-
-        });
-
+        // 📌 Configurar la respuesta HTTP con el archivo en memoria
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        res.setHeader("Content-Disposition", `attachment; filename="${paciente.nombre}.docx"`);
         res.send(buffer);
-        console.log(`✅ Informe generado y enviado correctamente como "${paciente.nombre}.docx"`);
 
+        console.log(`✅ Informe generado y enviado correctamente para: ${paciente.nombre}`);
 
     } catch (error) {
         console.error("❌ Error en /generar-informe:", error);
         res.status(500).json({ error: "Error al generar el informe." });
     }
 });
-
 
 module.exports = router;
