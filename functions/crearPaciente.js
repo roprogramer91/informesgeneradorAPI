@@ -13,10 +13,14 @@ function construirPaciente(textoPDF) {
     const unifiedText = lines.join(" ");
 
     // Extraer nombre completo del paciente
-    const nombreMatch = unifiedText.match(/Informe de Monitoreo Ambulatorio de Presión Arterial\s*([\w\s]+)/);
+    const nombreMatch = unifiedText.match(/Informe de Monitoreo Ambulatorio de Presión Arterial\s*([\p{L}\s]+)/u);
     if (nombreMatch) {
         paciente.nombre = nombreMatch[1].replace(/ID paciente.*/, '').trim();
     }
+    //DEBUG --------------------------------
+    console.log("🔤 Nombre original extraído del PDF:", nombreMatch ? nombreMatch[1] : "No encontrado");
+    console.log("🧾 Nombre procesado y limpiado:", paciente.nombre);
+    //--------------------------------------
 
     // Extraer la fecha correcta después de "Nº Cama.:"
     const inicioPruebaMatch = unifiedText.match(/Nº Cama\.:?\s*([\d\/]+ \d{2}:\d{2})/);

@@ -21,8 +21,12 @@ router.post("/generar-informe", async (req, res) => {
         const buffer = generarInforme(paciente);
 
         // 📌 Configurar la respuesta HTTP con el archivo en memoria
+        const fileName = `${paciente.nombre}.docx`;
+        const safeFileName = encodeURIComponent(fileName);
+
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        res.setHeader("Content-Disposition", `attachment; filename="${paciente.nombre}.docx"`);
+        res.setHeader("Content-Disposition", `attachment; filename="${safeFileName}"; filename*=UTF-8''${safeFileName}`);
+
         res.send(buffer);
 
         console.log(`✅ Informe generado y enviado correctamente para: ${paciente.nombre}`);
