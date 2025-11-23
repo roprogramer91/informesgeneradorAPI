@@ -1,13 +1,37 @@
 let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");
 
+const btnSiguiente0 = document.getElementById("btnSiguiente0");
 const btnSiguiente1 = document.getElementById("btnSiguiente1");
 const btnSiguiente2 = document.getElementById("btnSiguiente2");
 const btnInicio = document.getElementById("btnInicio");
 const btnGenerar = document.getElementById("btnGenerar");
 
-// Variable global para almacenar los datos del paciente
+// 🏥 Variable global para almacenar la institución seleccionada
+let institucionSeleccionada = null;
+
+// 📋 Variable global para almacenar los datos del paciente
 let pacienteData = null;
+
+// 🏥 Función para seleccionar institución
+function seleccionarInstitucion(institucionId) {
+    // Remover la clase 'selected' de todas las tarjetas
+    const cards = document.querySelectorAll(".institution-card");
+    cards.forEach(card => card.classList.remove("selected"));
+
+    // Agregar la clase 'selected' a la tarjeta clickeada
+    const selectedCard = document.querySelector(`[data-institucion="${institucionId}"]`);
+    if (selectedCard) {
+        selectedCard.classList.add("selected");
+    }
+
+    // Guardar la institución seleccionada
+    institucionSeleccionada = institucionId;
+    console.log(`🏥 Institución seleccionada: ${institucionId}`);
+
+    // Habilitar el botón "Siguiente"
+    btnSiguiente0.disabled = false;
+}
 
 // 🚀 Función para cambiar de slide
 function nextSlide() {
@@ -52,6 +76,7 @@ async function subirPDF() {
 }
 
 // 🔹 Event Listeners para cambiar de slide
+btnSiguiente0?.addEventListener("click", nextSlide);
 btnSiguiente1?.addEventListener("click", nextSlide);
 btnSiguiente2?.addEventListener("click", nextSlide);
 
@@ -100,6 +125,12 @@ async function actualizarMediciones() {
 async function generarInforme(event) {
     event.preventDefault();
 
+    // Validar que se haya seleccionado una institución
+    if (!institucionSeleccionada) {
+        alert("⚠️ Primero selecciona una institución.");
+        return;
+    }
+
     if (!pacienteData) {
         alert("⚠️ Primero sube un PDF y actualiza las mediciones.");
         return;
@@ -109,7 +140,10 @@ async function generarInforme(event) {
         const response = await fetch("http://localhost:3000/api/generar-informe", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ paciente: pacienteData })
+            body: JSON.stringify({
+                paciente: pacienteData,
+                institucion: institucionSeleccionada // 🏥 Enviar institución seleccionada
+            })
         });
 
         if (!response.ok) {

@@ -15,8 +15,36 @@
 
     <main class="slider-container">
         
-        <!-- Slide 1: Seleccionar PDF -->
+        <!-- Slide 0: Seleccionar Institución -->
         <section class="slide active">
+            <h2>Seleccionar Institución</h2>
+            <p class="subtitle">Elija la institución para la cual generará el informe</p>
+            
+            <div class="institution-cards">
+                <!-- Tarjeta Consultorios Médicos -->
+                <div class="institution-card" data-institucion="consultoriosMedicos" onclick="seleccionarInstitucion('consultoriosMedicos')">
+                    <div class="card-logo">
+                        <img src="assets/logos/consultorios_medicos.png" alt="Consultorios Médicos Logo">
+                    </div>
+                    <h3>Consultorios Médicos</h3>
+                    <p>Institución médica especializada</p>
+                </div>
+
+                <!-- Tarjeta Vital Norte -->
+                <div class="institution-card" data-institucion="vitalNorte" onclick="seleccionarInstitucion('vitalNorte')">
+                    <div class="card-logo">
+                        <img src="assets/logos/vital_norte.png" alt="Vital Norte Logo">
+                    </div>
+                    <h3>Vital Norte</h3>
+                    <p>Centro médico integral</p>
+                </div>
+            </div>
+
+            <button class="btn next-btn" id="btnSiguiente0" disabled>Siguiente</button>
+        </section>
+
+        <!-- Slide 1: Seleccionar PDF -->
+        <section class="slide">
             <h2>Seleccionar PDF</h2>
             <label for="pdfInput">📄</label>
             <input type="file" id="pdfInput">
