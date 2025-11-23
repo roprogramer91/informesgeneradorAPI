@@ -37,9 +37,17 @@ Facilitar el trabajo de profesionales médicos al automatizar:
    - Hipertensión Nivel 1, 2, 3
    - HTA Sistólica Aislada
 
+### 🏥 Soporte Multi-Institución
+- Selección de institución al inicio del flujo
+- Plantillas personalizadas por institución
+- Logos institucionales específicos
+- Instituciones soportadas:
+  - **Consultorios Médicos**
+  - **Vital Norte**
+
 ### 📄 Generación de Informes
 - Generación automática de documentos Word profesionales
-- Uso de plantillas personalizables
+- Uso de plantillas personalizables por institución
 - Descarga directa con nombre del paciente
 
 ### 🎨 Interfaz de Usuario
@@ -56,7 +64,13 @@ Facilitar el trabajo de profesionales médicos al automatizar:
 
 ```
 Informatron/
+├── assets/                        # Recursos estáticos
+│   └── logos/                     # Logos de instituciones
+│       ├── consultorios_medicos.png
+│       └── vital_norte.png
 ├── back/                          # Backend (Node.js/Express)
+│   ├── config/                    # Configuración
+│   │   └── config.js              # Configuración de instituciones
 │   ├── functions/                 # Lógica de negocio
 │   │   ├── pdfExtractor.js       # Extracción de texto de PDF
 │   │   ├── crearPaciente.js      # Construcción del objeto paciente
@@ -67,7 +81,8 @@ Informatron/
 │   │   ├── medicionesRoutes.js   # Endpoint de actualización de mediciones
 │   │   └── informeRoutes.js      # Endpoint de generación de informes
 │   ├── templates/                 # Plantillas Word
-│   │   └── PlantillaInforme.docx # Plantilla principal
+│   │   ├── PlantillaA.docx       # Plantilla Consultorios Médicos
+│   │   └── PlantillaB.docx       # Plantilla Vital Norte
 │   ├── output/                    # Archivos generados (temporal)
 │   ├── server.js                  # Servidor Express
 │   └── package.json               # Dependencias del backend
@@ -159,6 +174,14 @@ graph TD
 
 ### Flujo de Trabajo
 
+#### Paso 0: Seleccionar Institución
+1. Visualizar las tarjetas de instituciones disponibles
+2. Hacer clic en la tarjeta de la institución deseada:
+   - **Consultorios Médicos**
+   - **Vital Norte**
+3. La tarjeta seleccionada se resaltará
+4. Hacer clic en "Siguiente"
+
 #### Paso 1: Cargar PDF
 1. Hacer clic en el botón de selección de archivo
 2. Seleccionar un archivo PDF con datos MAPA
@@ -243,12 +266,13 @@ graph TD
 ```
 
 ### POST /api/generar-informe
-**Descripción**: Genera y descarga un informe Word
+**Descripción**: Genera y descarga un informe Word con la plantilla de la institución seleccionada
 
 **Request**:
 ```json
 {
-  "paciente": { /* objeto paciente completo con mediciones */ }
+  "paciente": { /* objeto paciente completo con mediciones */ },
+  "institucion": "consultoriosMedicos" // o "vitalNorte"
 }
 ```
 
@@ -312,16 +336,38 @@ construirPaciente(textoPDF)
 
 ### 4. crearInforme.js
 ```javascript
-generarInforme(paciente)
+generarInforme(paciente, institucionId)
 ```
-- **Propósito**: Generar documento Word desde plantilla
+- **Propósito**: Generar documento Word desde plantilla específica de la institución
+- **Parámetros**:
+  - `paciente`: Objeto con datos del paciente
+  - `institucionId`: ID de la institución (consultoriosMedicos o vitalNorte)
 - **Proceso**:
-  1. Carga plantilla Word
-  2. Reemplaza variables con datos del paciente
-  3. Genera archivo en memoria
-  4. Retorna buffer del archivo
+  1. Valida la institución
+  2. Obtiene configuración de la institución
+  3. Carga plantilla Word correspondiente
+  4. Reemplaza variables con datos del paciente
+  5. Genera archivo en memoria
+  6. Retorna buffer del archivo
 
-### 5. main.js (Frontend)
+### 5. config.js (Backend)
+```javascript
+obtenerConfiguracionInstitucion(institucionId)
+esInstitucionValida(institucionId)
+obtenerTodasLasInstituciones()
+```
+- **Propósito**: Gestionar configuración de instituciones
+- **Funcionalidades**:
+  - Almacena configuración de cada institución (nombre, plantilla, logo)
+  - Valida IDs de instituciones
+  - Proporciona acceso a configuraciones
+
+### 6. main.js (Frontend)
+
+#### seleccionarInstitucion(institucionId)
+- Gestiona la selección de institución
+- Actualiza UI para mostrar selección
+- Habilita botón "Siguiente"
 
 #### subirPDF()
 - Envía archivo PDF al backend
@@ -345,9 +391,39 @@ generarInforme(paciente)
 
 ## 🎨 Personalización
 
-### Modificar Plantilla de Informe
+### Agregar Nueva Institución
 
-1. Abrir `back/templates/PlantillaInforme.docx` en Microsoft Word
+1. **Agregar configuración en `back/config/config.js`**:
+   ```javascript
+   nuevaInstitucion: {
+       id: 'nuevaInstitucion',
+       nombre: 'Nueva Institución',
+       nombreCompleto: 'Nueva Institución Médica',
+       plantilla: 'PlantillaC.docx',
+       logo: 'nueva_institucion.png',
+       descripcion: 'Descripción de la institución'
+   }
+   ```
+
+2. **Crear plantilla Word**: Copiar `PlantillaA.docx` como `PlantillaC.docx` y personalizar logo
+
+3. **Agregar logo**: Colocar imagen en `assets/logos/nueva_institucion.png`
+
+4. **Actualizar frontend**: Agregar nueva tarjeta en `index.html`:
+   ```html
+   <div class="institution-card" data-institucion="nuevaInstitucion" 
+        onclick="seleccionarInstitucion('nuevaInstitucion')">
+       <div class="card-logo">
+           <img src="assets/logos/nueva_institucion.png" alt="Logo">
+       </div>
+       <h3>Nueva Institución</h3>
+       <p>Descripción breve</p>
+   </div>
+   ```
+
+### Modificar Plantillas de Informe
+
+1. Abrir `back/templates/PlantillaA.docx` o `PlantillaB.docx` en Microsoft Word
 2. Editar el contenido manteniendo las variables entre llaves:
    - `{NOMBRE}` - Nombre del paciente
    - `{EDAD}` - Edad del paciente
@@ -421,6 +497,10 @@ Respuesta esperada: `✅ El servidor está corriendo correctamente.`
 ## 📝 Notas de Desarrollo
 
 ### Cambios Recientes
+- ✅ **Sistema multi-institución implementado** (Consultorios Médicos y Vital Norte)
+- ✅ Selección de institución con tarjetas interactivas
+- ✅ Plantillas personalizadas por institución
+- ✅ Logos institucionales integrados
 - ✅ Eliminada notificación automática por email al iniciar servidor
 - ✅ Código modularizado con comentarios detallados
 - ✅ Interfaz de usuario refinada con espaciado mejorado
@@ -432,7 +512,8 @@ Respuesta esperada: `✅ El servidor está corriendo correctamente.`
 - [ ] Autenticación de usuarios
 - [ ] Exportación a PDF además de Word
 - [ ] Gráficos de presión arterial
-- [ ] Soporte para múltiples plantillas
+- [ ] Panel de administración para gestionar instituciones
+- [ ] Carga dinámica de logos desde base de datos
 - [ ] Validación más robusta de PDFs
 - [ ] Internacionalización (i18n)
 
@@ -462,4 +543,4 @@ Para preguntas o problemas, contactar al equipo de desarrollo.
 ---
 
 **Última actualización**: Noviembre 2024
-**Versión**: 1.0.0
+**Versión**: 2.0.0 (Sistema Multi-Institución)
