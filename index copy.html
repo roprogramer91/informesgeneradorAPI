@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Informes Mapa</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <h2>Subir PDF</h2>
+    <label for="pdfInput">PDF</label>
+    <input type="file" id="pdfInput">
+    <button id="subirPDF">Cargar PDF</button>
+
+    <h2>Ingresar Mediciones</h2>
+    <label for="medicionesDiurnas">Mediciones Diurnas:</label>
+    <input type="number" id="medicionesDiurnas">
+    <br>
+    <label for="medicionesNocturnas">Mediciones Nocturnas:</label>
+    <input type="number" id="medicionesNocturnas">
+    <br>
+    <button id="actualizarMediciones">Actualizar Datos</button>
+
+    <h2>Generar Informe</h2>
+    <button id="generarInforme">Generar y Descargar</button>
+
+    <div id="output"></div>
+
+    <script src="scripts/main.js"></script>
+
+</body>
+</html>

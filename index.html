@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Informes MAPA</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts/main.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>🩺 Generar Informe MAPA</h1>
+    </header>
+
+    <main class="slider-container">
+        
+        <!-- Slide 1: Seleccionar PDF -->
+        <section class="slide active">
+            <h2>Seleccionar PDF</h2>
+            <label for="pdfInput">📄</label>
+            <input type="file" id="pdfInput">
+            <button class="btn" onclick="subirPDF()">Cargar PDF</button>
+            <button class="btn next-btn" id="btnSiguiente1" disabled>Siguiente</button>
+        </section>
+
+        <!-- Slide 2: Ingresar Mediciones -->
+        <section class="slide">
+            <h2>Ingresar Mediciones</h2>
+            <label for="medicionesDiurnas">Mediciones Diurnas:</label>
+            <input type="number" id="medicionesDiurnas">
+            <label for="medicionesNocturnas">Mediciones Nocturnas:</label>
+            <input type="number" id="medicionesNocturnas">
+            <button class="btn" onclick="actualizarMediciones()">Actualizar Datos</button>
+            <button class="btn next-btn" id="btnSiguiente2" disabled>Siguiente</button>
+        </section>
+
+        <!-- Slide 3: Generar Informe -->
+        <section class="slide">
+            <h2>Generar Informe</h2>
+            <button class="btn btn-primary" onclick="generarInforme(event)">Generar y Descargar</button>
+            <button class="btn reset-btn" id="btnInicio" disabled>Inicio</button>
+        </section>
+
+    </main>
+
+</body>
+</html>

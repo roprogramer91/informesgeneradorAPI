@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212 ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    margin: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.slider-container {
+    width: 400px;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 10px;
+    background: #282828;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slide {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+}
+
+.slide.active {
+    display: flex;
+}
+
+h1, h2, h3, label {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #36a5a4; /* Verde esmeralda */
+}
+
+input {
+    margin: 5px 0;
+    padding: 8px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin: 10px 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #36a5a4 ; /* Azul */
+    color: white;
+}
+
+.btn:hover {
+    background-color: #36a5a4; /* Turquesa */
+}
+
+.btn-primary {
+    background-color: #36a06f; /* Verde esmeralda */
+}
+
+.btn-primary:hover {
+    background-color: #2e8b6b; /* Verde más oscuro */
+}
+
+.btn-danger {
+    background-color: #00C896 ; /* Púrpura */
+}
+
+.btn-danger:hover {
+    background-color: #543069; /* Morado oscuro */
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
