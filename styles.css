@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212 ;
+    background-color: #121212;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,10 +36,14 @@ header {
     display: flex;
 }
 
-h1, h2, h3, label {
+h1,
+h2,
+h3,
+label {
     font-size: 22px;
     margin-bottom: 15px;
-    color: #36a5a4; /* Verde esmeralda */
+    color: #36a5a4;
+    /* Verde esmeralda */
 }
 
 .subtitle {
@@ -125,29 +129,54 @@ button {
     border-radius: 5px;
 }
 
+/* 🔘 Grupo de botones para navegación */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
 .btn {
-    background-color: #36a5a4 ; /* Azul */
+    background-color: #36a5a4;
+    /* Azul */
     color: white;
 }
 
 .btn:hover {
-    background-color: #2e8b8a; /* Turquesa más oscuro */
+    background-color: #2e8b8a;
+    /* Turquesa más oscuro */
+}
+
+/* ⬅️ Botón de retroceso */
+.back-btn {
+    background-color: #555;
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #666;
 }
 
 .btn-primary {
-    background-color: #36a06f; /* Verde esmeralda */
+    background-color: #36a06f;
+    /* Verde esmeralda */
 }
 
 .btn-primary:hover {
-    background-color: #2e8b6b; /* Verde más oscuro */
+    background-color: #2e8b6b;
+    /* Verde más oscuro */
 }
 
 .btn-danger {
-    background-color: #00C896 ; /* Púrpura */
+    background-color: #00C896;
+    /* Púrpura */
 }
 
 .btn-danger:hover {
-    background-color: #543069; /* Morado oscuro */
+    background-color: #543069;
+    /* Morado oscuro */
 }
 
 button:disabled {
@@ -160,7 +189,7 @@ button:disabled {
     .institution-cards {
         grid-template-columns: 1fr;
     }
-    
+
     .slider-container {
         width: 95%;
         padding: 20px;

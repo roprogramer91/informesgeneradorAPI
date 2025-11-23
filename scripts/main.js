@@ -4,6 +4,9 @@ const slides = document.querySelectorAll(".slide");
 const btnSiguiente0 = document.getElementById("btnSiguiente0");
 const btnSiguiente1 = document.getElementById("btnSiguiente1");
 const btnSiguiente2 = document.getElementById("btnSiguiente2");
+const btnAtras1 = document.getElementById("btnAtras1");
+const btnAtras2 = document.getElementById("btnAtras2");
+const btnAtras3 = document.getElementById("btnAtras3");
 const btnInicio = document.getElementById("btnInicio");
 const btnGenerar = document.getElementById("btnGenerar");
 
@@ -33,11 +36,20 @@ function seleccionarInstitucion(institucionId) {
     btnSiguiente0.disabled = false;
 }
 
-// 🚀 Función para cambiar de slide
+// 🚀 Función para cambiar de slide hacia adelante
 function nextSlide() {
     if (currentSlide < slides.length - 1) {
         slides[currentSlide].classList.remove("active");
         currentSlide++;
+        slides[currentSlide].classList.add("active");
+    }
+}
+
+// ⬅️ Función para cambiar de slide hacia atrás
+function prevSlide() {
+    if (currentSlide > 0) {
+        slides[currentSlide].classList.remove("active");
+        currentSlide--;
         slides[currentSlide].classList.add("active");
     }
 }
@@ -79,6 +91,11 @@ async function subirPDF() {
 btnSiguiente0?.addEventListener("click", nextSlide);
 btnSiguiente1?.addEventListener("click", nextSlide);
 btnSiguiente2?.addEventListener("click", nextSlide);
+
+// ⬅️ Event Listeners para retroceder de slide
+btnAtras1?.addEventListener("click", prevSlide);
+btnAtras2?.addEventListener("click", prevSlide);
+btnAtras3?.addEventListener("click", prevSlide);
 
 // 📊 Validar y actualizar datos en el backend
 async function actualizarMediciones() {

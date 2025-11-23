@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <script defer src="scripts/main.js"></script>
 </head>
+
 <body>
 
     <header>
@@ -14,15 +16,16 @@
     </header>
 
     <main class="slider-container">
-        
+
         <!-- Slide 0: Seleccionar Institución -->
         <section class="slide active">
             <h2>Seleccionar Institución</h2>
             <p class="subtitle">Elija la institución para la cual generará el informe</p>
-            
+
             <div class="institution-cards">
                 <!-- Tarjeta Consultorios Médicos -->
-                <div class="institution-card" data-institucion="consultoriosMedicos" onclick="seleccionarInstitucion('consultoriosMedicos')">
+                <div class="institution-card" data-institucion="consultoriosMedicos"
+                    onclick="seleccionarInstitucion('consultoriosMedicos')">
                     <div class="card-logo">
                         <img src="assets/logos/consultorios_medicos.png" alt="Consultorios Médicos Logo">
                     </div>
@@ -31,7 +34,8 @@
                 </div>
 
                 <!-- Tarjeta Vital Norte -->
-                <div class="institution-card" data-institucion="vitalNorte" onclick="seleccionarInstitucion('vitalNorte')">
+                <div class="institution-card" data-institucion="vitalNorte"
+                    onclick="seleccionarInstitucion('vitalNorte')">
                     <div class="card-logo">
                         <img src="assets/logos/vital_norte.png" alt="Vital Norte Logo">
                     </div>
@@ -40,7 +44,9 @@
                 </div>
             </div>
 
-            <button class="btn next-btn" id="btnSiguiente0" disabled>Siguiente</button>
+            <div class="button-group">
+                <button class="btn next-btn" id="btnSiguiente0" disabled>Siguiente</button>
+            </div>
         </section>
 
         <!-- Slide 1: Seleccionar PDF -->
@@ -49,7 +55,11 @@
             <label for="pdfInput">📄</label>
             <input type="file" id="pdfInput">
             <button class="btn" onclick="subirPDF()">Cargar PDF</button>
-            <button class="btn next-btn" id="btnSiguiente1" disabled>Siguiente</button>
+
+            <div class="button-group">
+                <button class="btn back-btn" id="btnAtras1">← Atrás</button>
+                <button class="btn next-btn" id="btnSiguiente1" disabled>Siguiente</button>
+            </div>
         </section>
 
         <!-- Slide 2: Ingresar Mediciones -->
@@ -60,17 +70,26 @@
             <label for="medicionesNocturnas">Mediciones Nocturnas:</label>
             <input type="number" id="medicionesNocturnas">
             <button class="btn" onclick="actualizarMediciones()">Actualizar Datos</button>
-            <button class="btn next-btn" id="btnSiguiente2" disabled>Siguiente</button>
+
+            <div class="button-group">
+                <button class="btn back-btn" id="btnAtras2">← Atrás</button>
+                <button class="btn next-btn" id="btnSiguiente2" disabled>Siguiente</button>
+            </div>
         </section>
 
         <!-- Slide 3: Generar Informe -->
         <section class="slide">
             <h2>Generar Informe</h2>
             <button class="btn btn-primary" onclick="generarInforme(event)">Generar y Descargar</button>
-            <button class="btn reset-btn" id="btnInicio" disabled>Inicio</button>
+
+            <div class="button-group">
+                <button class="btn back-btn" id="btnAtras3">← Atrás</button>
+                <button class="btn reset-btn" id="btnInicio" disabled>Inicio</button>
+            </div>
         </section>
 
     </main>
 
 </body>
+
 </html>
