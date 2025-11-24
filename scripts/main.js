@@ -10,6 +10,29 @@ const btnAtras3 = document.getElementById("btnAtras3");
 const btnInicio = document.getElementById("btnInicio");
 const btnGenerar = document.getElementById("btnGenerar");
 
+// 🌓 Función para cambiar entre modo claro y oscuro
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    const themeIcon = document.getElementById('theme-icon');
+
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+
+    // Cambiar icono
+    themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+}
+
+// 🎨 Cargar tema guardado al iniciar
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const themeIcon = document.getElementById('theme-icon');
+
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+});
+
 // 🏥 Variable global para almacenar la institución seleccionada
 let institucionSeleccionada = null;
 
