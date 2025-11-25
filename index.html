@@ -12,9 +12,12 @@
 <body>
 
     <header>
-        <h1>🩺 Generar Informe MAPA</h1>
+        <h1>Generar Informe MAPA</h1>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-            <span id="theme-icon">🌙</span>
+            <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
         </button>
     </header>
 
@@ -55,12 +58,12 @@
         <!-- Slide 1: Seleccionar PDF -->
         <section class="slide">
             <h2>Seleccionar PDF</h2>
-            <label for="pdfInput">📄 Archivo PDF</label>
+            <label for="pdfInput">Archivo PDF</label>
             <input type="file" id="pdfInput" accept=".pdf">
             <button class="btn" onclick="subirPDF()">Cargar PDF</button>
 
             <div class="button-group">
-                <button class="btn back-btn" id="btnAtras1">← Atrás</button>
+                <button class="btn back-btn" id="btnAtras1">Atrás</button>
                 <button class="btn next-btn" id="btnSiguiente1" disabled>Siguiente</button>
             </div>
         </section>
@@ -75,7 +78,7 @@
             <button class="btn" onclick="actualizarMediciones()">Actualizar Datos</button>
 
             <div class="button-group">
-                <button class="btn back-btn" id="btnAtras2">← Atrás</button>
+                <button class="btn back-btn" id="btnAtras2">Atrás</button>
                 <button class="btn next-btn" id="btnSiguiente2" disabled>Siguiente</button>
             </div>
         </section>
@@ -83,11 +86,11 @@
         <!-- Slide 3: Generar Informe -->
         <section class="slide">
             <h2>Generar Informe</h2>
-            <button class="btn btn-primary" onclick="generarInforme(event)">✨ Generar y Descargar</button>
+            <button class="btn btn-primary" onclick="generarInforme(event)">Generar y Descargar</button>
 
             <div class="button-group">
-                <button class="btn back-btn" id="btnAtras3">← Atrás</button>
-                <button class="btn reset-btn" id="btnInicio" disabled>🔄 Inicio</button>
+                <button class="btn back-btn" id="btnAtras3">Atrás</button>
+                <button class="btn reset-btn" id="btnInicio" disabled>Inicio</button>
             </div>
         </section>
 
