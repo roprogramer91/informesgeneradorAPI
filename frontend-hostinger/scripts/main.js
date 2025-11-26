@@ -1,6 +1,11 @@
 let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");
 
+// 🌐 Configuración de API
+// Para desarrollo local: 'http://localhost:3000'
+// Para producción: URL de Railway
+const API_URL = 'https://informesgeneradorapi-production.up.railway.app';
+
 const btnSiguiente0 = document.getElementById("btnSiguiente0");
 const btnSiguiente1 = document.getElementById("btnSiguiente1");
 const btnSiguiente2 = document.getElementById("btnSiguiente2");
@@ -100,7 +105,7 @@ async function subirPDF() {
     formData.append("pdfFile", fileInput);
 
     try {
-        const response = await fetch("http://localhost:3000/api/upload-pdf", {
+        const response = await fetch(`${API_URL}/api/upload-pdf`, {
             method: "POST",
             body: formData
         });
@@ -150,7 +155,7 @@ async function actualizarMediciones() {
     pacienteData.medicionesNocturnas = medicionesNocturnas;
 
     try {
-        const response = await fetch("http://localhost:3000/api/actualizar-mediciones", {
+        const response = await fetch(`${API_URL}/api/actualizar-mediciones`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ paciente: pacienteData })
@@ -188,7 +193,7 @@ async function generarInforme(event) {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/api/generar-informe", {
+        const response = await fetch(`${API_URL}/api/generar-informe`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

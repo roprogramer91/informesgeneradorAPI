@@ -3,8 +3,8 @@ const slides = document.querySelectorAll(".slide");
 
 // 🌐 Configuración de API
 // Para desarrollo local: 'http://localhost:3000'
-// Para producción: URL de Vercel
-const API_URL = 'https://informesgenerador-api.vercel.app';
+// Para producción: URL de Railway
+const API_URL = 'https://informesgeneradorapi-production.up.railway.app';
 
 const btnSiguiente0 = document.getElementById("btnSiguiente0");
 const btnSiguiente1 = document.getElementById("btnSiguiente1");
